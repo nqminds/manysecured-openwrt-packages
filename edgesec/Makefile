@@ -6,8 +6,8 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/nqminds/EDGESec.git
-PKG_SOURCE_DATE:=2022-05-20
-PKG_SOURCE_VERSION:=43dc689b6a985d7ceceac7f6bbc402d9820c26d1
+PKG_SOURCE_DATE:=2022-05-24
+PKG_SOURCE_VERSION:=e9ce8efd2ad4404ed6f70e34eb85383e3485e250
 
 PKG_MAINTAINER:=Alexandru Mereacre
 PKG_LICENSE:=MIT
@@ -26,7 +26,7 @@ define Package/EDGESec
   CATEGORY:=Network
   TITLE:=EDGESec
   URL:=https://github.com/nqminds/EDGESec
-  DEPENDS:=+socat +hostapd +dnsmasq
+  DEPENDS:=+socat +hostapd +dnsmasq +libuuid
 endef
 
 define Package/EDGESec/description
@@ -43,6 +43,9 @@ TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
 
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
+
+# dynamically link these modules
+CMAKE_OPTIONS += -DBUILD_UUID_LIB=OFF
 
 define Build/Configure
 	# does nothing, since EDGESec's `cmake` is a bit annoying, and compiles
