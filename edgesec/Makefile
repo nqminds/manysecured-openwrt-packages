@@ -58,19 +58,6 @@ CMAKE_OPTIONS += \
 	-DBUILD_PCAP_LIB=OFF \
 	-DBUILD_UUID_LIB=OFF
 
-define Build/Configure
-	# does nothing, since EDGESec's `cmake` is a bit annoying, and compiles
-	# dependencies during configure time
-	true
-endef
-
-define Build/Compile
-	# run cmake configure step now
-	$(Build/Configure/Default)
-	# now run default cmake compile step
-	$(Build/Compile/Default)
-endef
-
 define Package/edgesec/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/edgesec $(1)/usr/bin/
