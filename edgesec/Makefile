@@ -20,16 +20,16 @@ PKG_BUILD_PARALLEL:=1
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
-define Package/EDGESec
+define Package/edgesec
   SUBMENU:=ManySecured
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=EDGESec
+  TITLE:=edgesec
   URL:=https://github.com/nqminds/EDGESec
   DEPENDS:=+socat +hostapd +dnsmasq +libuuid +libuci +libsqlite3 +libpcap
 endef
 
-define Package/EDGESec/description
+define Package/edgesec/description
  EDGESec secure IoT edge router
 endef
 
@@ -71,9 +71,9 @@ define Build/Compile
 	$(Build/Compile/Default)
 endef
 
-define Package/EDGESec/install
+define Package/edgesec/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/edgesec $(1)/usr/bin/
 endef
 
-$(eval $(call BuildPackage,EDGESec))
+$(eval $(call BuildPackage,edgesec))
