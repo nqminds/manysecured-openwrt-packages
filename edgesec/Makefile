@@ -14,7 +14,8 @@ PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
+# Uncomment this if EDGESec does not support MIPS 16
+# PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
