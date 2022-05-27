@@ -26,7 +26,7 @@ define Package/EDGESec
   CATEGORY:=Network
   TITLE:=EDGESec
   URL:=https://github.com/nqminds/EDGESec
-  DEPENDS:=+socat +hostapd +dnsmasq +libuuid +libuci +libsqlite3
+  DEPENDS:=+socat +hostapd +dnsmasq +libuuid +libuci +libsqlite3 +libpcap
 endef
 
 define Package/EDGESec/description
@@ -55,6 +55,7 @@ CMAKE_OPTIONS += \
 	-DBUILD_UCI_LIB=OFF \
 	-DBUILD_HOSTAPD=OFF \
 	-DBUILD_SQLITE_LIB=OFF \
+	-DBUILD_PCAP_LIB=OFF \
 	-DBUILD_UUID_LIB=OFF
 
 define Build/Configure
