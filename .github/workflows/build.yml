@@ -9,7 +9,8 @@ on:
 jobs:
   build:
     name: ${{ matrix.arch }} build
-    runs-on: ubuntu-latest
+    # building OpenWRT packages is super slow, so do it on our self-hosted machines
+    runs-on: [self-hosted, linux]
     strategy:
       matrix:
         arch:
