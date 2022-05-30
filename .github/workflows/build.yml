@@ -1,0 +1,37 @@
+name: Test Build
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: ${{ matrix.arch }} build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch:
+          - x86_64
+          - mips_24kc
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        uses: openwrt/gh-action-sdk@v5
+        env:
+          ARCH: ${{ matrix.arch }}
+          FEEDNAME: manysecured
+          # | will get replaced with " "
+          EXTRA_FEEDS: src-git|node|https://github.com/nxhack/openwrt-node-packages.git
+
+
+      - name: Store packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.arch}}-packages
+          path: bin/packages/${{ matrix.arch }}/packages/*.ipk
