@@ -35,9 +35,10 @@ jobs:
           # we have to pass a key, otherwise OpenWRT build fails
           # see https://forum.openwrt.org/t/cant-compile-ipk-with-sdk-key-build-signing-key-is-missing/2266
           KEY_BUILD: ${{ secrets.USIGN_KEY_BUILD }}
+          ARTIFACTS_DIR: ${{ github.workspace }}
 
       - name: Store packages
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.arch}}-packages
-          path: bin/packages/${{ matrix.arch }}/packages/*.ipk
+          path: ${{ github.workspace }}/bin/packages/${{ matrix.arch }}/packages/*/manysecured/*.ipk
