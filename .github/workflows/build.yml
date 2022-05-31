@@ -24,13 +24,17 @@ jobs:
           fetch-depth: 0
 
       - name: Build
-        uses: openwrt/gh-action-sdk@v5
+        #uses: openwrt/gh-action-sdk@v5
+        # use custom fork for podman-docker support
+        uses: aloisklink/gh-action-sdk@3c140331be77231e19614c6a1805d0779355c724
         env:
           ARCH: ${{ matrix.arch }}
           FEEDNAME: manysecured
           # | will get replaced with " "
           EXTRA_FEEDS: src-git|node|https://github.com/nxhack/openwrt-node-packages.git
-
+          # we have to pass a key, otherwise OpenWRT build fails
+          # see https://forum.openwrt.org/t/cant-compile-ipk-with-sdk-key-build-signing-key-is-missing/2266
+          KEY_BUILD: ${{ secrets.USIGN_KEY_BUILD }}
 
       - name: Store packages
         uses: actions/upload-artifact@v3
