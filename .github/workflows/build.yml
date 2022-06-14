@@ -26,7 +26,7 @@ jobs:
       - name: Build
         #uses: openwrt/gh-action-sdk@v5
         # use custom fork for podman-docker support
-        uses: aloisklink/gh-action-sdk@3c140331be77231e19614c6a1805d0779355c724
+        uses: aloisklink/gh-action-sdk@7be9a7838e0f8a99638eaf257c0322f97a7546c5
         env:
           ARCH: ${{ matrix.arch }}
           FEEDNAME: manysecured
