@@ -15,8 +15,8 @@ jobs:
       matrix:
         arch:
           - x86_64
-          - mvebu-cortexa9-19.07.9 # turris omnia
-          - ath79-generic-21.02.3 # https://openwrt.org/toh/hwdata/tp-link/tp-link_eap225-outdoor_v1
+          - arm_cortex-a9_vfpv3-d16 # mvebu-cortexa9: turris omnia
+          - mipsel_24kc # ath79-generic: https://openwrt.org/toh/hwdata/tp-link/tp-link_eap225-outdoor_v1
 
     steps:
       - uses: actions/checkout@v3
