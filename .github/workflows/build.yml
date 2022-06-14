@@ -22,7 +22,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
+      - name: Create artifact output dir
+        run: |
+          mkdir --parents '${{ runner.temp }}/artifacts'
       - name: Build
         #uses: openwrt/gh-action-sdk@v5
         # use custom fork for podman-docker support
@@ -35,10 +37,9 @@ jobs:
           # we have to pass a key, otherwise OpenWRT build fails
           # see https://forum.openwrt.org/t/cant-compile-ipk-with-sdk-key-build-signing-key-is-missing/2266
           KEY_BUILD: ${{ secrets.USIGN_KEY_BUILD }}
-          ARTIFACTS_DIR: ${{ github.workspace }}
-
+          ARTIFACTS_DIR: ${{ runner.temp }}/artifacts
       - name: Store packages
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.arch}}-packages
-          path: ${{ github.workspace }}/bin/packages/${{ matrix.arch }}/packages/*/manysecured/*.ipk
+          path: ${{ runner.temp }}/artifacts/bin/packages/${{ matrix.arch }}/manysecured/*.ipk
