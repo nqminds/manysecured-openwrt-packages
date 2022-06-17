@@ -76,7 +76,7 @@ define Package/edgesec/install
 	$(INSTALL_BIN) ./files/edgesec.init.sh $(1)/etc/init.d/edgesec
 
 	$(INSTALL_DIR) $(1)/etc/edgesec
-	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/edgesec/config.ini $(1)/etc/edgesec
+	$(INSTALL_CONF) ./files/config.ini $(1)/etc/edgesec
 endef
 
 $(eval $(call BuildPackage,edgesec))
