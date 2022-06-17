@@ -38,14 +38,8 @@ define Package/edgesec/conffiles
 /etc/edgesec/config.ini
 endef
 
-TAR_OPTIONS+= --strip-components 1
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
-
-TMPNPM:=$(shell mktemp -u XXXXXXXXXX)
-
-# we don't want to delete the NPM cache, so that subsequent builds
-# are much faster (`npm install` can take 10minutes and up!)
-
+# Not 100% sure if these are still needed, I think CMake adds these
+# automatically
 TARGET_CFLAGS+=$(FPIC)
 TARGET_CPPFLAGS+=$(FPIC)
 
