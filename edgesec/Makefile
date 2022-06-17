@@ -70,7 +70,11 @@ CMAKE_OPTIONS += \
 define Package/edgesec/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/edgesec $(1)/usr/bin/
+
 	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/edgesec.init.sh $(1)/etc/init.d/edgesec
+
 	$(INSTALL_DIR) $(1)/etc/edgesec
 	$(INSTALL_CONF) $(PKG_INSTALL_DIR)/etc/edgesec/config.ini $(1)/etc/edgesec
 endef
