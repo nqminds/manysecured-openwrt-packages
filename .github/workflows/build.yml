@@ -10,7 +10,7 @@ jobs:
   build:
     name: ${{ matrix.arch }} build
     # building OpenWRT packages is super slow, so do it on our self-hosted machines
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         arch:
@@ -26,9 +26,9 @@ jobs:
         run: |
           mkdir --parents '${{ runner.temp }}/artifacts'
       - name: Build
-        #uses: openwrt/gh-action-sdk@v5
+        uses: openwrt/gh-action-sdk@v5
         # use custom fork for podman-docker support
-        uses: aloisklink/gh-action-sdk@7be9a7838e0f8a99638eaf257c0322f97a7546c5
+        # uses: aloisklink/gh-action-sdk@7be9a7838e0f8a99638eaf257c0322f97a7546c5
         env:
           ARCH: ${{ matrix.arch }}
           FEEDNAME: manysecured
