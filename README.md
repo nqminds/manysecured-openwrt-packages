@@ -3,8 +3,11 @@
 📦 OpenWRT package feed for manysecured
 
 ## Usage
+### Toolchain
+Download the OpenWRT SDK toolchain from [https://downloads.openwrt.org/releases](https://downloads.openwrt.org/releases) for your hardware architecture and OpenWRt release.
 
-Add the following line to your OpenWRT toolchain/SDK `feeds.conf` or `feeds.conf.default`.
+### Configure
+Add the following line to the `feeds.conf` or `feeds.conf.default` files in the OpenWRT SDK toolchain folder:
 
 ```conf
 src-git node https://github.com/nqminds/manysecured-openwrt-packages.git
