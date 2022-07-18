@@ -13,7 +13,7 @@ Download the OpenWRT SDK toolchain from [https://downloads.openwrt.org/releases]
 Add the following line to the `feeds.conf` or `feeds.conf.default` files in the OpenWRT SDK toolchain folder:
 
 ```conf
-src-git node https://github.com/nqminds/manysecured-openwrt-packages.git
+src-git manysecured https://github.com/nqminds/manysecured-openwrt-packages.git
 ```
 
 Run the following to download the OpenWRT package definitions, enable them for compilation, and compile them.
