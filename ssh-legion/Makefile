@@ -23,13 +23,23 @@ define Package/ssh-legion
   SUBMENU:=ManySecured
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=NQM SSH Tunneler that stores a file in ~/connections with the tunneled port
+  TITLE:=Automatic reverse SSH tunnel for multiple IoT devices.
   URL:=https://github.com/nqminds/ssh-legion
   DEPENDS:=+openssh-client
 endef
 
 define Package/ssh-legion/description
- NQM SSH Tunneler that stores a file in ~/connections with the tunneled port
+  Automatically sets up a reverse SSH tunnel to a remote host through a
+  publically accesible Reverse SSH server.
+
+  Each host creates a tunnel so that it's accessible via localhost on the
+  reverse SSH server. This means that an SSH proxyjump can be used to SSH
+  through the reverse SSH tunnel to the host.
+
+  Importantly, each host creates a file on the server's ~/connections folder
+  that contains the port number of the local tunnel port. This means that you
+  can deploy this ssh-legion script on multiple devices, and have them all use
+  unique ports automatically.
 endef
 
 # files listed here are preserved by default when a package is updated
