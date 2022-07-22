@@ -1,11 +1,11 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=ssh-tunnel
+PKG_NAME:=ssh-legion
 PKG_VERSION:=0.1.0
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git@github.com:nqminds/nqm-ssh-tunnel.git
+PKG_SOURCE_URL:=https://github.com/nqminds/ssh-legion.git
 PKG_SOURCE_DATE:=2022-07-08
 PKG_SOURCE_VERSION:=4879a5234ccaf322f0e186f0e5109931a3a948db
 
@@ -20,22 +20,22 @@ PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/ssh-tunnel
+define Package/ssh-legion
   SUBMENU:=ManySecured
   SECTION:=net
   CATEGORY:=Network
   TITLE:=NQM SSH Tunneler that stores a file in ~/connections with the tunneled port
-  URL:=https://github.com/nqminds/ssh-tunnel
+  URL:=https://github.com/nqminds/ssh-legion
   DEPENDS:=+openssh-client
 endef
 
-define Package/ssh-tunnel/description
+define Package/ssh-legion/description
  NQM SSH Tunneler that stores a file in ~/connections with the tunneled port
 endef
 
 # files listed here are preserved by default when a package is updated
-define Package/ssh-tunnel/conffiles
-/etc/ssh-tunnel/ssh-tunnel.config
+define Package/ssh-legion/conffiles
+/etc/ssh-legion/ssh-legion.config
 endef
 
 define Build/Compile
@@ -47,16 +47,16 @@ define Build/Install
 	true
 endef
 
-define Package/ssh-tunnel/install
+define Package/ssh-legion/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ssh-tunnel $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/ssh-legion $(1)/usr/bin/
 
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/ssh-tunnel.init.sh $(1)/etc/init.d/ssh-tunnel
+	$(INSTALL_BIN) ./files/ssh-legion.init.sh $(1)/etc/init.d/ssh-legion
 
-	$(INSTALL_DIR) $(1)/etc/ssh-tunnel
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/ssh-tunnel.config $(1)/etc/ssh-tunnel/ssh-tunnel.config
+	$(INSTALL_DIR) $(1)/etc/ssh-legion
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/ssh-legion.config $(1)/etc/ssh-legion/ssh-legion.config
 endef
 
-$(eval $(call BuildPackage,ssh-tunnel))
+$(eval $(call BuildPackage,ssh-legion))
