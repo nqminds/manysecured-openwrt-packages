@@ -25,7 +25,8 @@ define Package/ssh-legion
   CATEGORY:=Network
   TITLE:=Automatic reverse SSH tunnel for multiple IoT devices.
   URL:=https://github.com/nqminds/ssh-legion
-  DEPENDS:=+openssh-client
+  # runtime only dependency (not used to build)
+  EXTRA_DEPENDS:=+openssh-client
 endef
 
 define Package/ssh-legion/description
