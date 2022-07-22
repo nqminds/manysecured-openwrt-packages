@@ -26,7 +26,7 @@ define Package/ssh-legion
   TITLE:=Automatic reverse SSH tunnel for multiple IoT devices.
   URL:=https://github.com/nqminds/ssh-legion
   # runtime only dependency (not used to build)
-  EXTRA_DEPENDS:=+openssh-client +bash(>=4.3-1)
+  EXTRA_DEPENDS:=openssh-client, bash (>=4.3-1)
 endef
 
 define Package/ssh-legion/description
