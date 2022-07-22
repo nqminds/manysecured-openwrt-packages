@@ -26,7 +26,8 @@ define Package/edgesec
   CATEGORY:=Network
   TITLE:=edgesec
   URL:=https://github.com/nqminds/EDGESec
-  DEPENDS:=hostapd +dnsmasq +libuuid +libuci +libsqlite3 +libpcap
+  DEPENDS:=+libuuid +libuci +libsqlite3 +libpcap
+  EXTRA_DEPENDS=hostapd, dnsmasq
 endef
 
 define Package/edgesec/description
