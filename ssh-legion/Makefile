@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ssh-legion
 PKG_VERSION:=0.1.0
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/nqminds/ssh-legion.git
@@ -27,6 +27,8 @@ define Package/ssh-legion
   URL:=https://github.com/nqminds/ssh-legion
   # runtime only dependency (not used to build)
   EXTRA_DEPENDS:=openssh-client, bash (>=4.3-1)
+  # works on all architectures since it's just a script
+  PKGARCH:=all
 endef
 
 define Package/ssh-legion/description
