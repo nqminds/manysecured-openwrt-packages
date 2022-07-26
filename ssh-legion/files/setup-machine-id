@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Setup /etc/machine-id and /var/lib/dbus/machine-id if they don't exist
+
+# If dbus is installed, use dbus-uuidgen
+# If uuidgen is installed, use uuidgen
+# Otherwise, just create hex from random data
+
+if [ ! -f /etc/machine-id ]; then
+    if command -v dbus-uuidgen; then
+        dbus-uuidgen --ensure=/etc/machine-id
+    elif command -v uuidgen; then
+        uuidgen | sed -e 's/-//g' > /etc/machine-id
+    else
+        # nowhere near as good as uuidgen, but probably doesn't matter
+        # too much
+        tr -dc 'a-f0-9' < /dev/urandom | head -c32 > /etc/machine-id
+        # add trailing \n char
+        echo "" >> /etc/machine-id
+    fi
+fi
+
+if [ ! -f /var/lib/dbus/machine-id ]; then
+    mkdir -p /var/lib/dbus
+    ln -s /etc/machine-id /var/lib/dbus/machine-id
+fi
