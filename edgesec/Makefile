@@ -1,20 +1,20 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=edgesec
-PKG_VERSION:=1.0.0
-PKG_RELEASE:=1
+PKG_VERSION:=0.0.8
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/nqminds/EDGESec.git
-PKG_SOURCE_DATE:=2022-06-20			
-PKG_SOURCE_VERSION:=8bcc40a8085590b4d6c4d97913b4411d1226bae6
+PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
+PKG_SOURCE_DATE:=2022-07-25
+PKG_SOURCE_VERSION:=a23c9541e55d392a0a71e3d5297aa5dc7b98c246
 
 PKG_MAINTAINER:=Alexandru Mereacre
 PKG_LICENSE:=MIT
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_BUILD_PARALLEL:=1
-# Uncomment this if EDGESec does not support MIPS 16
+# Uncomment this if edgesec does not support MIPS 16
 # PKG_USE_MIPS16:=0
 
 include $(INCLUDE_DIR)/package.mk
@@ -25,7 +25,7 @@ define Package/edgesec
   SECTION:=net
   CATEGORY:=Network
   TITLE:=edgesec
-  URL:=https://github.com/nqminds/EDGESec
+  URL:=https://github.com/nqminds/edgesec
   DEPENDS:=+libuuid +libuci +libsqlite3 +libpcap
   EXTRA_DEPENDS=hostapd, dnsmasq
 endef
