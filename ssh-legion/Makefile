@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ssh-legion
-PKG_VERSION:=0.1.2
+PKG_VERSION:=0.1.3
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/nqminds/ssh-legion.git
-PKG_SOURCE_DATE:=2022-08-12
-PKG_SOURCE_VERSION:=a66c9789b1fc2c00e4be0193b25fe3a22ffc6c1c
+PKG_SOURCE_DATE:=2022-08-22
+PKG_SOURCE_VERSION:=7f28f57ca6e63404b6a351cd0a6ee4252f4cc199
 
 PKG_MAINTAINER:=Alois Klink
 PKG_LICENSE:=GPL-3.0-only
@@ -26,7 +26,7 @@ define Package/ssh-legion
   TITLE:=Automatic reverse SSH tunnel for multiple IoT devices.
   URL:=https://github.com/nqminds/ssh-legion
   # runtime only dependency (not used to build)
-  EXTRA_DEPENDS:=openssh-client, bash (>=4.3-1), openssl-util (>=1.1.1-1)
+  EXTRA_DEPENDS:=openssh-client, bash (>=4.4-1), openssl-util (>=1.1.1-1)
   # works on all architectures since it's just a script
   PKGARCH:=all
 endef
