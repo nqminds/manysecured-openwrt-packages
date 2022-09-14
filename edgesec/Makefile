@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=edgesec
 PKG_VERSION:=0.0.8
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
@@ -72,6 +72,11 @@ define Package/edgesec/install
 
 	$(INSTALL_DIR) $(1)/etc/edgesec
 	$(INSTALL_CONF) ./files/config.ini $(1)/etc/edgesec
+	
+	# default folder for storing edgesec databases
+	# Warning!! Will error if `/srv` does not exist
+	# Normally, this should be external storage, not internal storage
+	$(INSTALL_DIR) $(1)/srv/edgesec
 endef
 
 $(eval $(call BuildPackage,edgesec))
