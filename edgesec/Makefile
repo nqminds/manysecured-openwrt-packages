@@ -1,13 +1,18 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=edgesec
-PKG_VERSION:=0.0.8
-PKG_RELEASE:=4
+PKG_VERSION:=0.1.0-alpha.0
+PKG_RELEASE:=1
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
-PKG_SOURCE_DATE:=2022-07-28
-PKG_SOURCE_VERSION:=20e12a9f295b121dfeba7829622a050a5985452e
+# Use the following settings for testing with unreleased git commits
+# PKG_SOURCE_PROTO:=git
+# PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
+# PKG_SOURCE_DATE:=2022-07-28
+# PKG_SOURCE_VERSION:=20e12a9f295b121dfeba7829622a050a5985452e
+
+PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/nqminds/edgesec/archive/refs/tags
+PKG_HASH:=fa467dd2445f182d9fb0d1a2b6e51791a9bc4fbcbf46fb61c28175a66e8c66c3
 
 PKG_MAINTAINER:=Alexandru Mereacre
 PKG_LICENSE:=MIT
@@ -72,7 +77,7 @@ define Package/edgesec/install
 
 	$(INSTALL_DIR) $(1)/etc/edgesec
 	$(INSTALL_CONF) ./files/config.ini $(1)/etc/edgesec
-	
+
 	# default folder for storing edgesec databases
 	# Warning!! Will error if `/srv` does not exist
 	# Normally, this should be external storage, not internal storage
