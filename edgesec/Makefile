@@ -7,9 +7,11 @@ PKG_RELEASE:=1
 # Use the following settings for testing with unreleased git commits
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
-# download uthash from GitHub.com during OpenWRT download step
-PKG_SOURCE_DATE:=2022-11-04
-PKG_SOURCE_VERSION:=f66d46573a6af577bdbfb2529d8372c63b82633d
+# Patches over official v0.1.0-alpha.0 release:
+# - download uthash from GitHub.com during OpenWRT download step
+# - add _BSD_SOURCE defines for including libpcap
+PKG_SOURCE_DATE:=2022-11-07
+PKG_SOURCE_VERSION:=caa49be2b48bc72c6f9030fdd7731db761275fca
 
 # PKG_SOURCE:=edgesec-$(PKG_VERSION).tar.gz
 # PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
