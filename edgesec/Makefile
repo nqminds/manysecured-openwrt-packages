@@ -10,8 +10,9 @@ PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
 # Patches over official v0.1.0-alpha.0 release:
 # - download uthash from GitHub.com during OpenWRT download step
 # - add _BSD_SOURCE defines for including libpcap
+# - fix missing non-standard ISO C features (e.g. lots of _POSIX_C_SOURCE)
 PKG_SOURCE_DATE:=2022-11-07
-PKG_SOURCE_VERSION:=caa49be2b48bc72c6f9030fdd7731db761275fca
+PKG_SOURCE_VERSION:=c7e67ac263df7f26215beaed44b14f4dc84d78c3
 
 # PKG_SOURCE:=edgesec-$(PKG_VERSION).tar.gz
 # PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
