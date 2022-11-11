@@ -11,8 +11,9 @@ PKG_SOURCE_URL:=https://github.com/nqminds/edgesec.git
 # - download uthash from GitHub.com during OpenWRT download step
 # - add _BSD_SOURCE defines for including libpcap
 # - fix missing non-standard ISO C features (e.g. lots of _POSIX_C_SOURCE)
-PKG_SOURCE_DATE:=2022-11-07
-PKG_SOURCE_VERSION:=c7e67ac263df7f26215beaed44b14f4dc84d78c3
+# - fix OpenWRT UCI segmentation fault
+PKG_SOURCE_DATE:=2022-11-11
+PKG_SOURCE_VERSION:=321a9be655a7462e8bf8c3e8cccba456dd39cceb
 
 # PKG_SOURCE:=edgesec-$(PKG_VERSION).tar.gz
 # PKG_SOURCE_URL_FILE:=v$(PKG_VERSION).tar.gz
