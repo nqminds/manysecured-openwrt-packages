@@ -25,7 +25,8 @@ jobs:
             runtime_test: true
           - arch: arm_cortex-a9_vfpv3-d16
             target: mvebu-cortexa9 # mvebu-cortexa9: turris omnia
-            runtime_test: true
+            runtime_test: false # Node.JS is currently missing from the OpenWRT official repos
+                                # see https://forum.openwrt.org/t/why-arent-the-node-and-node-npm-packages-available-on-arm-cortex-a9-vfpv3-d16-in-22-03-2/142722/2
           - arch: aarch64_cortex-a53
             target: bcm27xx # Raspberry Pi 2 and 3
             runtime_test: true
