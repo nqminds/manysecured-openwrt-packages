@@ -26,6 +26,9 @@ jobs:
           - arch: arm_cortex-a9_vfpv3-d16
             target: mvebu-cortexa9 # mvebu-cortexa9: turris omnia
             runtime_test: true
+          - arch: aarch64_cortex-a53
+            target: bcm27xx # Raspberry Pi 2 and 3
+            runtime_test: true
           - arch: mipsel_24kc # ath79-generic: https://openwrt.org/toh/hwdata/tp-link/tp-link_eap225-outdoor_v1
             target: ath79-generic
             runtime_test: false
