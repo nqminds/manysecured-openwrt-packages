@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0
+# Contains code from https://github.com/openwrt/packages/blob/d36c34f9847d20450f61c955ccab745a5c90e90f/.github/workflows/formal.yml
+
 name: Test Build
 
 on:
@@ -6,6 +9,9 @@ on:
     branches:
       - main
 
+env:
+  BRANCH: openwrt-22.03
+
 jobs:
   build:
     name: ${{ matrix.arch }} build
@@ -13,10 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch:
-          - x86_64
-          - arm_cortex-a9_vfpv3-d16 # mvebu-cortexa9: turris omnia
-          - mipsel_24kc # ath79-generic: https://openwrt.org/toh/hwdata/tp-link/tp-link_eap225-outdoor_v1
+        include:
+          - arch: x86_64
+            target: x86_64
+            runtime_test: true
+          - arch: arm_cortex-a9_vfpv3-d16
+            target: mvebu-cortexa9 # mvebu-cortexa9: turris omnia
+            runtime_test: true
+          - arch: aarch64_cortex-a53
+            target: bcm27xx # Raspberry Pi 2 and 3
+            runtime_test: true
+          - arch: mipsel_24kc # ath79-generic: https://openwrt.org/toh/hwdata/tp-link/tp-link_eap225-outdoor_v1
+            target: ath79-generic
+            runtime_test: false
 
     steps:
       - uses: actions/checkout@v3
@@ -30,14 +45,64 @@ jobs:
         # use custom fork for podman-docker support
         # uses: aloisklink/gh-action-sdk@7be9a7838e0f8a99638eaf257c0322f97a7546c5
         env:
-          ARCH: ${{ matrix.arch }}
+          ARCH: ${{ matrix.arch }}-${{ env.BRANCH }}
           FEEDNAME: manysecured
           # we have to pass a key, otherwise OpenWRT build fails
           # see https://forum.openwrt.org/t/cant-compile-ipk-with-sdk-key-build-signing-key-is-missing/2266
           KEY_BUILD: ${{ secrets.USIGN_KEY_BUILD }}
           ARTIFACTS_DIR: ${{ runner.temp }}/artifacts
+
+      - name: Move created packages to project dir
+        run: cp ${{ runner.temp }}/artifacts/bin/packages/${{ matrix.arch }}/manysecured/*.ipk . || true
+
+      - name: Collect metadata
+        run: |
+          MERGE_ID=$(git rev-parse --short HEAD)
+          echo "MERGE_ID=$MERGE_ID" >> $GITHUB_ENV
+          echo "BASE_ID=$(git rev-parse --short HEAD^1)" >> $GITHUB_ENV
+          echo "HEAD_ID=$(git rev-parse --short HEAD^2)" >> $GITHUB_ENV
+          PRNUMBER=${GITHUB_REF_NAME%/merge}
+          echo "PRNUMBER=$PRNUMBER" >> $GITHUB_ENV
+          echo "ARCHIVE_NAME=${{matrix.arch}}-PR$PRNUMBER-$MERGE_ID" >> $GITHUB_ENV
+      - name: Generate metadata
+        run: |
+          cat << _EOF_ > PKG-INFO
+          Metadata-Version: 2.1
+          Name: ${{matrix.arch}}-packages
+          Version: $BRANCH
+          Author: $GITHUB_ACTOR
+          Home-page: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA
+          Download-URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          Summary: Manysecured Packages
+          Platform: ${{ matrix.arch }}
+          Packages for OpenWrt $BRANCH running on ${{matrix.arch}}, built from commit $GITHUB_SHA
+
+          echo >> PKG-INFO
+          echo Full file listing: >> PKG-INFO
+          ls -al *.ipk >> PKG-INFO || true
+          cat PKG-INFO
+
       - name: Store packages
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.arch}}-packages
-          path: ${{ runner.temp }}/artifacts/bin/packages/${{ matrix.arch }}/manysecured/*.ipk
+          name: ${{matrix.arch}}-packages
+          path: |
+            *.ipk
+            PKG-INFO
+
+      # testing steps
+      - name: Register QEMU container support
+        if: ${{ matrix.runtime_test }}
+        uses: dbhi/qus/action@9e6e7a40952256574dcbe6f54eac6ef984bad5c1
+
+      - name: Build Docker container
+        if: ${{ matrix.runtime_test }}
+        run: |
+          docker build -t test-container --build-arg ARCH .github/workflows/
+        env:
+          ARCH: ${{ matrix.arch }}-${{ env.BRANCH }}
+
+      - name: Test via Docker container
+        if: ${{ matrix.runtime_test }}
+        run: |
+          docker run --rm -v $GITHUB_WORKSPACE:/ci test-container
