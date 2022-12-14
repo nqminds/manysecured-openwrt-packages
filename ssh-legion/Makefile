@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ssh-legion
 PKG_VERSION:=0.1.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/nqminds/ssh-legion.git
@@ -70,7 +70,7 @@ define Package/ssh-legion/install
 	# creates an /etc/machine-id on first boot
 	# tried to use dbus-uuidgen, or uuidgen, or fallsback to busybox and /dev/urandom
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_DATA) ./files/setup-machine-id $(1)/etc/uci-defaults/95-setup-machine-id
+	$(INSTALL_BIN) ./files/setup-machine-id $(1)/etc/uci-defaults/95-setup-machine-id
 
 	$(INSTALL_DIR) $(1)/etc/ssh-legion
 	$(INSTALL_CONF) $(PKG_BUILD_DIR)/ssh-legion.config $(1)/etc/ssh-legion/ssh-legion.config
